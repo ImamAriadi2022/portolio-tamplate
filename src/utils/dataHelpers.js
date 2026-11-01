@@ -196,7 +196,7 @@ export function getProfile() {
     description: cleanString(raw.description),
     about: cleanString(raw.about),
     location: cleanString(raw.location),
-    avatar: cleanImagePath(raw.avatar) || "/assets/hero-img.webp",
+    avatar: cleanImagePath(raw.avatar) || "/assets/avatar.png",
     resume: cleanString(raw.resume),
     stats: {
       projectsCompleted: cleanString(stats.projectsCompleted, "45+"),
