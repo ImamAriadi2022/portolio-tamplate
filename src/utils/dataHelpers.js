@@ -7,14 +7,11 @@ import contactRaw from "../../data/contact.json" with { type: "json" };
 import navigationRaw from "../../data/navigation.json" with { type: "json" };
 
 import { ensureItemSlug, normalizeSlug } from "./slug.js";
-import {
-  sortCertificationsByDate,
-  sortExperiencesByDate,
-} from "./sorting.js";
+import { sortCertificationsByDate, sortExperiencesByDate } from "./sorting.js";
 
 /**
- * Peta ikon bawaan untuk mencocokkan nama ikon/tool dengan gambar yang tersedia di public/assets/tools
- * atau fallback RemixIcon jika pengguna menambahkan skill baru dengan kode nama ikon.
+ * Daftar alias ikon skill agar penulisan di `data/skills.json` fleksibel:
+ * Bisa menulis nama pendek ("react", "tailwind", "figma") atau path gambar ("/assets/tools/reactjs.png").
  */
 const SKILL_ICON_MAP = {
   vscode: { type: "image", src: "/assets/tools/vscode.png" },
@@ -49,11 +46,20 @@ const SKILL_ICON_MAP = {
   mysql: { type: "remixicon", className: "ri-database-2-line text-sky-400" },
 };
 
+const SOCIAL_ICON_MAP = {
+  github: "ri-github-fill",
+  linkedin: "ri-linkedin-box-fill",
+  instagram: "ri-instagram-line",
+  youtube: "ri-youtube-fill",
+  twitter: "ri-twitter-x-line",
+  x: "ri-twitter-x-line",
+  dribbble: "ri-dribbble-line",
+  behance: "ri-behance-fill",
+  reddit: "ri-reddit-fill",
+};
+
 /**
- * Memastikan nilai string bersih dan aman digunakan.
- * @param {any} value
- * @param {string} fallback
- * @returns {string}
+ * Membersihkan nilai string dengan nilai fallback jika kosong.
  */
 export function cleanString(value, fallback = "") {
   if (typeof value !== "string") return fallback;
@@ -62,21 +68,17 @@ export function cleanString(value, fallback = "") {
 }
 
 /**
- * Memastikan array string hanya berisi nilai string yang tidak kosong.
- * @param {any} arr
- * @returns {string[]}
+ * Membersihkan array agar hanya berisi string yang tidak kosong.
  */
 export function cleanStringArray(arr) {
   if (!Array.isArray(arr)) return [];
   return arr
     .map((item) => (typeof item === "string" ? item.trim() : ""))
-    .filter((item) => item.length > 0);
+    .filter(Boolean);
 }
 
 /**
- * Memvalidasi apakah URL eksternal valid (http:// atau https://).
- * @param {any} url
- * @returns {boolean}
+ * Memvalidasi URL eksternal (http/https).
  */
 export function isValidExternalUrl(url) {
   if (typeof url !== "string") return false;
@@ -91,102 +93,106 @@ export function isValidExternalUrl(url) {
 }
 
 /**
- * Memvalidasi path gambar atau URL gambar.
- * @param {any} path
- * @returns {string}
+ * Menormalkan path aset/gambar secara cerdas:
+ * - Jika ditulis nama file saja (mis. `"avatar.png"` atau `"proyek1.webp"`), otomatis diarahkan ke `/assets/<defaultSubfolder>/...`.
+ * - Jika ditulis `/images/...`, otomatis dipetakan ke `/assets/...`.
+ * - Jika ditulis `/assets/...` atau URL `https://...`, langsung digunakan.
  */
-export function cleanImagePath(path) {
-  if (typeof path !== "string") return "";
-  const trimmed = path.trim();
+export function cleanImagePath(rawPath, defaultSubfolder = "") {
+  if (typeof rawPath !== "string") return "";
+  const trimmed = rawPath.trim();
   if (!trimmed) return "";
-  if (trimmed.startsWith("/") || isValidExternalUrl(trimmed)) {
+
+  if (isValidExternalUrl(trimmed)) {
     return trimmed;
   }
-  return `/${trimmed.replace(/^\.?\//, "")}`;
+
+  // Petakan path lama `/images/...` atau `/public/...` ke `/assets/...`
+  const normalized = trimmed
+    .replace(/^\/?public\//, "/")
+    .replace(/^\/?images\/profile\//, "/assets/")
+    .replace(/^\/?images\/projects\//, "/assets/proyek/")
+    .replace(/^\/?images\//, "/assets/");
+
+  if (normalized.startsWith("/")) {
+    return normalized;
+  }
+
+  // Jika pengguna hanya menulis nama file seperti "avatar.png" atau "proyek1.webp"
+  if (!normalized.includes("/")) {
+    return defaultSubfolder
+      ? `/assets/${defaultSubfolder}/${normalized}`
+      : `/assets/${normalized}`;
+  }
+
+  return `/${normalized.replace(/^\.?\//, "")}`;
 }
 
 /**
- * Menyelesaikan representasi ikon untuk item skill.
- * @param {string} icon
- * @param {string} name
- * @returns {{ type: 'image' | 'remixicon', src?: string, className?: string }}
+ * Menyelesaikan ikon skill (mendukung path gambar maupun kode nama tool).
  */
 export function resolveSkillIcon(icon, name) {
   const rawIcon = cleanString(icon);
   const rawName = cleanString(name).toLowerCase();
 
-  if (rawIcon.startsWith("/") || isValidExternalUrl(rawIcon)) {
-    return { type: "image", src: rawIcon };
+  if (rawIcon.includes("/") || rawIcon.endsWith(".png") || rawIcon.endsWith(".svg") || rawIcon.endsWith(".webp")) {
+    return { type: "image", src: cleanImagePath(rawIcon, "tools") };
   }
 
   const key = rawIcon.toLowerCase();
-  if (key && SKILL_ICON_MAP[key]) {
-    return SKILL_ICON_MAP[key];
-  }
-  if (rawName && SKILL_ICON_MAP[rawName]) {
-    return SKILL_ICON_MAP[rawName];
-  }
-  if (key.startsWith("ri-")) {
-    return { type: "remixicon", className: rawIcon };
-  }
+  if (key && SKILL_ICON_MAP[key]) return SKILL_ICON_MAP[key];
+  if (rawName && SKILL_ICON_MAP[rawName]) return SKILL_ICON_MAP[rawName];
+  if (key.startsWith("ri-")) return { type: "remixicon", className: rawIcon };
 
   return { type: "remixicon", className: "ri-code-box-line text-violet-400" };
 }
 
 /**
- * Validasi dan deduplikasi koleksi item berdasarkan ID dan slug tanpa mengubah file sumber.
- * @param {any} list
- * @param {string} categoryLabel
- * @param {string} fallbackSlugField
- * @returns {Array<Record<string, any>>}
+ * Menentukan class RemixIcon berdasarkan nama platform sosial media.
  */
-function validateCollection(list, categoryLabel, fallbackSlugField = "title") {
-  if (!Array.isArray(list)) {
-    console.warn(`[dataHelpers] Koleksi "${categoryLabel}" bukan array yang valid.`);
-    return [];
+export function getSocialIconClass(platform) {
+  const key = cleanString(platform).toLowerCase();
+  for (const [name, iconClass] of Object.entries(SOCIAL_ICON_MAP)) {
+    if (key.includes(name)) return iconClass;
   }
-
-  const seenIds = new Set();
-  const seenSlugs = new Set();
-  const validated = [];
-
-  list.forEach((rawItem, index) => {
-    if (!rawItem || typeof rawItem !== "object") {
-      console.warn(`[dataHelpers] Item tidak valid pada "${categoryLabel}" indeks ${index}.`);
-      return;
-    }
-
-    let id = cleanString(rawItem.id, `${categoryLabel}-${index + 1}`);
-    if (seenIds.has(id)) {
-      console.warn(`[dataHelpers] Duplikasi ID "${id}" terdeteksi pada "${categoryLabel}".`);
-      id = `${id}-${index + 1}`;
-    }
-    seenIds.add(id);
-
-    let slug = ensureItemSlug(rawItem, fallbackSlugField);
-    if (!slug) {
-      slug = `${categoryLabel}-${index + 1}`;
-    }
-    if (seenSlugs.has(slug)) {
-      console.warn(`[dataHelpers] Duplikasi slug "${slug}" terdeteksi pada "${categoryLabel}".`);
-      slug = `${slug}-${index + 1}`;
-    }
-    seenSlugs.add(slug);
-
-    validated.push({
-      ...rawItem,
-      id,
-      slug,
-    });
-  });
-
-  return validated;
+  return "ri-links-line";
 }
 
 /**
- * Mengambil data profil dari data/profile.json.
+ * Normalisasi dan deduplikasi koleksi data (ID & Slug otomatis dibuat jika belum diisi).
  */
-export function getProfile() {
+function normalizeCollection(list, prefix, slugSourceField, transformItem) {
+  if (!Array.isArray(list)) return [];
+
+  const seenIds = new Set();
+  const seenSlugs = new Set();
+
+  return list
+    .filter((item) => item && typeof item === "object")
+    .map((rawItem, index) => {
+      const num = String(index + 1).padStart(3, "0");
+
+      let id = cleanString(rawItem.id, `${prefix}-${num}`);
+      if (seenIds.has(id)) {
+        id = `${id}-${index + 1}`;
+      }
+      seenIds.add(id);
+
+      let slug = ensureItemSlug(rawItem, slugSourceField) || `${prefix}-${num}`;
+      if (seenSlugs.has(slug)) {
+        slug = `${slug}-${index + 1}`;
+      }
+      seenSlugs.add(slug);
+
+      return transformItem({ ...rawItem, id, slug }, index);
+    });
+}
+
+/* ==========================================================================
+   SINGLE SOURCE OF TRUTH — DATA YANG TELAH DINORMALISASI SEKALI SAAT LOAD
+   ========================================================================== */
+
+const PROFILE_DATA = (() => {
   const raw = profileRaw && typeof profileRaw === "object" ? profileRaw : {};
   const stats = raw.stats && typeof raw.stats === "object" ? raw.stats : {};
   return {
@@ -196,97 +202,59 @@ export function getProfile() {
     description: cleanString(raw.description),
     about: cleanString(raw.about),
     location: cleanString(raw.location),
-    avatar: cleanImagePath(raw.avatar) || "/assets/avatar.png",
+    avatar: cleanImagePath(raw.avatar) || "/assets/hero-img.webp",
     resume: cleanString(raw.resume),
     stats: {
       projectsCompleted: cleanString(stats.projectsCompleted, "45+"),
       yearsOfExperience: cleanString(stats.yearsOfExperience, "4+"),
     },
   };
-}
+})();
 
-/**
- * Mengambil kategori dan daftar keahlian dari data/skills.json.
- */
-export function getSkills() {
-  const rawCategories =
-    skillsRaw && typeof skillsRaw === "object" && Array.isArray(skillsRaw.categories)
-      ? skillsRaw.categories
-      : [];
+const SKILLS_DATA = (() => {
+  const rawCategories = Array.isArray(skillsRaw?.categories)
+    ? skillsRaw.categories
+    : [];
 
-  const seenCategoryIds = new Set();
+  return normalizeCollection(rawCategories, "skill-cat", "name", (cat) => {
+    const name = cleanString(cat.name, "Skills & Tools");
+    const rawItems = Array.isArray(cat.items) ? cat.items : [];
 
-  return rawCategories
-    .filter((cat) => cat && typeof cat === "object")
-    .map((cat, idx) => {
-      let id = cleanString(cat.id, `skill-cat-${idx + 1}`);
-      if (seenCategoryIds.has(id)) {
-        id = `${id}-${idx + 1}`;
-      }
-      seenCategoryIds.add(id);
+    const items = rawItems
+      .filter((item) => item && typeof item === "object" && cleanString(item.name))
+      .map((item, idx) => {
+        const itemName = cleanString(item.name);
+        return {
+          id: cleanString(item.id, `${cat.id}-item-${idx + 1}`),
+          name: itemName,
+          icon: cleanString(item.icon),
+          role: cleanString(item.role, name),
+          iconData: resolveSkillIcon(item.icon, itemName),
+        };
+      });
 
-      const name = cleanString(cat.name, "Skills & Tools");
-      const rawItems = Array.isArray(cat.items) ? cat.items : [];
+    return { id: cat.id, name, items };
+  }).filter((cat) => cat.items.length > 0);
+})();
 
-      const items = rawItems
-        .filter((item) => item && typeof item === "object" && cleanString(item.name))
-        .map((item, itemIdx) => {
-          const itemName = cleanString(item.name);
-          const role = cleanString(item.role, name);
-          const iconData = resolveSkillIcon(item.icon, itemName);
-          return {
-            id: cleanString(item.id, `${id}-item-${itemIdx + 1}`),
-            name: itemName,
-            icon: cleanString(item.icon),
-            role,
-            iconData,
-          };
-        });
-
-      return {
-        id,
-        name,
-        items,
-      };
-    })
-    .filter((cat) => cat.items.length > 0);
-}
-
-/**
- * Mengambil seluruh item keahlian secara mendatar (flat array).
- */
-export function getFlatSkills() {
-  const categories = getSkills();
-  return categories.flatMap((category) =>
-    category.items.map((item) => ({
-      ...item,
-      categoryName: category.name,
-      categoryId: category.id,
-    }))
-  );
-}
-
-/**
- * Mengambil seluruh daftar project yang telah divalidasi dari data/projects.json.
- */
-export function getAllProjects() {
-  const rawList =
-    projectsRaw && typeof projectsRaw === "object" && Array.isArray(projectsRaw.projects)
-      ? projectsRaw.projects
-      : [];
-
-  const validated = validateCollection(rawList, "project", "title").map((proj) => {
-    const thumbnail = cleanImagePath(proj.thumbnail);
+const PROJECTS_DATA = normalizeCollection(
+  projectsRaw?.projects,
+  "project",
+  "title",
+  (proj) => {
+    const thumbnail = cleanImagePath(proj.thumbnail, "proyek");
     const gallery = cleanStringArray(proj.gallery)
-      .map((img) => cleanImagePath(img))
+      .map((img) => cleanImagePath(img, "proyek"))
       .filter(Boolean);
+    const description = cleanString(proj.description, cleanString(proj.shortDescription));
+    const shortDescription = cleanString(proj.shortDescription, description);
 
     return {
       id: proj.id,
       slug: proj.slug,
       title: cleanString(proj.title, "Untitled Project"),
-      shortDescription: cleanString(proj.shortDescription, cleanString(proj.description)),
-      description: cleanString(proj.description, cleanString(proj.shortDescription)),
+      shortDescription,
+      description,
       thumbnail,
       category: cleanString(proj.category, "Web Development"),
       featured: Boolean(proj.featured),
@@ -302,152 +270,62 @@ export function getAllProjects() {
       repositoryUrl: isValidExternalUrl(proj.repositoryUrl) ? proj.repositoryUrl.trim() : "",
       liveUrl: isValidExternalUrl(proj.liveUrl) ? proj.liveUrl.trim() : "",
     };
-  });
+  }
+);
 
-  return validated;
-}
+const CERTIFICATIONS_DATA = sortCertificationsByDate(
+  normalizeCollection(
+    certificationsRaw?.certifications,
+    "cert",
+    "name",
+    (cert) => ({
+      id: cert.id,
+      slug: cert.slug,
+      name: cleanString(cert.name, "Untitled Certification"),
+      issuer: cleanString(cert.issuer),
+      issueDate: cleanString(cert.issueDate),
+      credentialId: cleanString(cert.credentialId),
+      credentialUrl: isValidExternalUrl(cert.credentialUrl) ? cert.credentialUrl.trim() : "",
+      image: cleanImagePath(cert.image, "certifications"),
+      description: cleanString(cert.description),
+      skills: cleanStringArray(cert.skills),
+      featured: Boolean(cert.featured),
+    })
+  )
+);
 
-/**
- * Mengambil project unggulan untuk ditampilkan di halaman Home (maksimal 3).
- * @param {number} limit
- */
-export function getFeaturedProjects(limit = 3) {
-  const maxLimit = Math.min(Math.max(Number(limit) || 3, 1), 3);
-  return getAllProjects()
-    .filter((proj) => proj.featured)
-    .slice(0, maxLimit);
-}
-
-/**
- * Mengambil detail project berdasarkan slug.
- * @param {string} slug
- */
-export function getProjectBySlug(slug) {
-  const target = normalizeSlug(slug);
-  if (!target) return null;
-  return getAllProjects().find((proj) => proj.slug === target) || null;
-}
-
-/**
- * Mengambil daftar kategori unik dari seluruh project.
- */
-export function getProjectCategories() {
-  const projects = getAllProjects();
-  const categories = new Set();
-  projects.forEach((proj) => {
-    if (proj.category) {
-      categories.add(proj.category);
+const EXPERIENCES_DATA = sortExperiencesByDate(
+  normalizeCollection(
+    experiencesRaw?.experiences,
+    "exp",
+    "position",
+    (exp) => {
+      const description = cleanString(exp.description, cleanString(exp.shortDescription));
+      const shortDescription = cleanString(exp.shortDescription, description);
+      return {
+        id: exp.id,
+        slug: exp.slug,
+        organization: cleanString(exp.organization, "Organisasi"),
+        position: cleanString(exp.position, "Posisi"),
+        type: cleanString(exp.type, "Work Experience"),
+        location: cleanString(exp.location),
+        employmentType: cleanString(exp.employmentType),
+        startDate: cleanString(exp.startDate),
+        endDate: cleanString(exp.endDate),
+        current: Boolean(exp.current),
+        shortDescription,
+        description,
+        responsibilities: cleanStringArray(exp.responsibilities),
+        achievements: cleanStringArray(exp.achievements),
+        technologies: cleanStringArray(exp.technologies),
+        logo: cleanImagePath(exp.logo, "experiences"),
+        featured: Boolean(exp.featured),
+      };
     }
-  });
-  return ["Semua", ...Array.from(categories)];
-}
+  )
+);
 
-/**
- * Mengambil seluruh daftar sertifikasi dari data/certifications.json (diurutkan terbaru).
- */
-export function getAllCertifications() {
-  const rawList =
-    certificationsRaw &&
-    typeof certificationsRaw === "object" &&
-    Array.isArray(certificationsRaw.certifications)
-      ? certificationsRaw.certifications
-      : [];
-
-  const validated = validateCollection(rawList, "certification", "name").map((cert) => ({
-    id: cert.id,
-    slug: cert.slug,
-    name: cleanString(cert.name, "Untitled Certification"),
-    issuer: cleanString(cert.issuer),
-    issueDate: cleanString(cert.issueDate),
-    credentialId: cleanString(cert.credentialId),
-    credentialUrl: isValidExternalUrl(cert.credentialUrl) ? cert.credentialUrl.trim() : "",
-    image: cleanImagePath(cert.image),
-    description: cleanString(cert.description),
-    skills: cleanStringArray(cert.skills),
-    featured: Boolean(cert.featured),
-  }));
-
-  return sortCertificationsByDate(validated);
-}
-
-/**
- * Mengambil sertifikasi unggulan untuk halaman Home.
- * @param {number} limit
- */
-export function getFeaturedCertifications(limit = 3) {
-  return getAllCertifications()
-    .filter((cert) => cert.featured)
-    .slice(0, limit);
-}
-
-/**
- * Mengambil detail sertifikasi berdasarkan slug.
- * @param {string} slug
- */
-export function getCertificationBySlug(slug) {
-  const target = normalizeSlug(slug);
-  if (!target) return null;
-  return getAllCertifications().find((cert) => cert.slug === target) || null;
-}
-
-/**
- * Mengambil seluruh daftar pengalaman dari data/experiences.json (diurutkan tanggal terbaru).
- */
-export function getAllExperiences() {
-  const rawList =
-    experiencesRaw &&
-    typeof experiencesRaw === "object" &&
-    Array.isArray(experiencesRaw.experiences)
-      ? experiencesRaw.experiences
-      : [];
-
-  const validated = validateCollection(rawList, "experience", "position").map((exp) => ({
-    id: exp.id,
-    slug: exp.slug,
-    organization: cleanString(exp.organization, "Organisasi"),
-    position: cleanString(exp.position, "Posisi"),
-    type: cleanString(exp.type, "Work Experience"),
-    location: cleanString(exp.location),
-    employmentType: cleanString(exp.employmentType),
-    startDate: cleanString(exp.startDate),
-    endDate: cleanString(exp.endDate),
-    current: Boolean(exp.current),
-    shortDescription: cleanString(exp.shortDescription, cleanString(exp.description)),
-    description: cleanString(exp.description, cleanString(exp.shortDescription)),
-    responsibilities: cleanStringArray(exp.responsibilities),
-    achievements: cleanStringArray(exp.achievements),
-    technologies: cleanStringArray(exp.technologies),
-    logo: cleanImagePath(exp.logo),
-    featured: Boolean(exp.featured),
-  }));
-
-  return sortExperiencesByDate(validated);
-}
-
-/**
- * Mengambil pengalaman unggulan untuk halaman Home.
- * @param {number} limit
- */
-export function getFeaturedExperiences(limit = 3) {
-  return getAllExperiences()
-    .filter((exp) => exp.featured)
-    .slice(0, limit);
-}
-
-/**
- * Mengambil detail pengalaman berdasarkan slug.
- * @param {string} slug
- */
-export function getExperienceBySlug(slug) {
-  const target = normalizeSlug(slug);
-  if (!target) return null;
-  return getAllExperiences().find((exp) => exp.slug === target) || null;
-}
-
-/**
- * Mengambil informasi kontak dari data/contact.json.
- */
-export function getContact() {
+const CONTACT_DATA = (() => {
   const raw = contactRaw && typeof contactRaw === "object" ? contactRaw : {};
   const rawSocials = Array.isArray(raw.socials) ? raw.socials : [];
 
@@ -470,51 +348,82 @@ export function getContact() {
     email: cleanString(raw.email),
     socials,
   };
-}
+})();
 
-/**
- * Menentukan class RemixIcon berdasarkan nama platform sosial media.
- * @param {string} platform
- * @returns {string}
- */
-export function getSocialIconClass(platform) {
-  const key = cleanString(platform).toLowerCase();
-  if (key.includes("github")) return "ri-github-fill";
-  if (key.includes("linkedin")) return "ri-linkedin-box-fill";
-  if (key.includes("instagram")) return "ri-instagram-line";
-  if (key.includes("youtube")) return "ri-youtube-fill";
-  if (key.includes("twitter") || key === "x") return "ri-twitter-x-line";
-  if (key.includes("dribbble")) return "ri-dribbble-line";
-  if (key.includes("behance")) return "ri-behance-fill";
-  if (key.includes("reddit")) return "ri-reddit-fill";
-  return "ri-links-line";
-}
-
-/**
- * Mengambil konfigurasi menu navigasi dari data/navigation.json.
- */
-export function getNavigation() {
-  const rawMenus =
-    navigationRaw && typeof navigationRaw === "object" && Array.isArray(navigationRaw.menus)
-      ? navigationRaw.menus
-      : [];
-
+const NAVIGATION_DATA = (() => {
+  const rawMenus = Array.isArray(navigationRaw?.menus) ? navigationRaw.menus : [];
   const menus = rawMenus
-    .filter((menu) => menu && typeof menu === "object" && cleanString(menu.label) && cleanString(menu.path))
-    .map((menu) => ({
-      label: cleanString(menu.label),
-      path: cleanString(menu.path),
+    .filter((m) => m && typeof m === "object" && cleanString(m.label) && cleanString(m.path))
+    .map((m) => ({
+      label: cleanString(m.label),
+      path: cleanString(m.path),
     }));
 
-  if (menus.length === 0) {
-    return [
-      { label: "Home", path: "/" },
-      { label: "Projects", path: "/projects" },
-      { label: "Certifications", path: "/certifications" },
-      { label: "Experience", path: "/experience" },
-      { label: "Contact", path: "/contact" },
-    ];
-  }
+  return menus.length > 0
+    ? menus
+    : [
+        { label: "Home", path: "/" },
+        { label: "Projects", path: "/projects" },
+        { label: "Certifications", path: "/certifications" },
+        { label: "Experience", path: "/experience" },
+        { label: "Contact", path: "/contact" },
+      ];
+})();
 
-  return menus;
-}
+/* ==========================================================================
+   PUBLIC GETTERS UNTUK KOMPONEN & HALAMAN
+   ========================================================================== */
+
+export const getProfile = () => PROFILE_DATA;
+
+export const getSkills = () => SKILLS_DATA;
+
+export const getFlatSkills = () =>
+  SKILLS_DATA.flatMap((category) =>
+    category.items.map((item) => ({
+      ...item,
+      categoryName: category.name,
+      categoryId: category.id,
+    }))
+  );
+
+export const getAllProjects = () => PROJECTS_DATA;
+
+export const getFeaturedProjects = (limit = 3) => {
+  const maxLimit = Math.min(Math.max(Number(limit) || 3, 1), 3);
+  return PROJECTS_DATA.filter((proj) => proj.featured).slice(0, maxLimit);
+};
+
+export const getProjectBySlug = (slug) => {
+  const target = normalizeSlug(slug);
+  return target ? PROJECTS_DATA.find((proj) => proj.slug === target) || null : null;
+};
+
+export const getProjectCategories = () => [
+  "Semua",
+  ...new Set(PROJECTS_DATA.map((proj) => proj.category).filter(Boolean)),
+];
+
+export const getAllCertifications = () => CERTIFICATIONS_DATA;
+
+export const getFeaturedCertifications = (limit = 3) =>
+  CERTIFICATIONS_DATA.filter((cert) => cert.featured).slice(0, limit);
+
+export const getCertificationBySlug = (slug) => {
+  const target = normalizeSlug(slug);
+  return target ? CERTIFICATIONS_DATA.find((cert) => cert.slug === target) || null : null;
+};
+
+export const getAllExperiences = () => EXPERIENCES_DATA;
+
+export const getFeaturedExperiences = (limit = 3) =>
+  EXPERIENCES_DATA.filter((exp) => exp.featured).slice(0, limit);
+
+export const getExperienceBySlug = (slug) => {
+  const target = normalizeSlug(slug);
+  return target ? EXPERIENCES_DATA.find((exp) => exp.slug === target) || null : null;
+};
+
+export const getContact = () => CONTACT_DATA;
+
+export const getNavigation = () => NAVIGATION_DATA;

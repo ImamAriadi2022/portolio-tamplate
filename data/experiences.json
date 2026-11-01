@@ -32,7 +32,7 @@
         "Figma",
         "Github"
       ],
-      "logo": "/images/experiences/exp-001.svg",
+      "logo": "/assets/experiences/exp-001.svg",
       "featured": true
     },
     {
@@ -65,7 +65,7 @@
         "Visual Studio Code",
         "Github"
       ],
-      "logo": "/images/experiences/exp-002.svg",
+      "logo": "/assets/experiences/exp-002.svg",
       "featured": true
     },
     {
@@ -95,7 +95,7 @@
         "Canva",
         "Figma"
       ],
-      "logo": "/images/experiences/exp-003.svg",
+      "logo": "/assets/experiences/exp-003.svg",
       "featured": true
     }
   ]

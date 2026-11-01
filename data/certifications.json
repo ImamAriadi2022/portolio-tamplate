@@ -8,7 +8,7 @@
       "issueDate": "2026-02-15",
       "credentialId": "DC-RNX-2026-0891",
       "credentialUrl": "https://www.dicoding.com",
-      "image": "/images/certifications/cert-001.svg",
+      "image": "/assets/certifications/cert-001.svg",
       "description": "Sertifikasi kompetensi pengembangan aplikasi web modern menggunakan ekosistem React.js dan Next.js, mencakup pengelolaan state, routing dinamis, komponen reusable, serta optimasi performa aplikasi.",
       "skills": [
         "React JS",
@@ -26,7 +26,7 @@
       "issueDate": "2025-09-20",
       "credentialId": "BWA-UIUX-2025-4412",
       "credentialUrl": "https://buildwithangga.com",
-      "image": "/images/certifications/cert-002.svg",
+      "image": "/assets/certifications/cert-002.svg",
       "description": "Sertifikasi perancangan antarmuka dan pengalaman pengguna (UI/UX) untuk produk digital, mulai dari riset pengguna, penyusunan wireframe, pembuatan design system di Figma, hingga interactive prototyping.",
       "skills": [
         "Figma",
@@ -43,7 +43,7 @@
       "issueDate": "2025-04-10",
       "credentialId": "CP-FSJS-2025-1190",
       "credentialUrl": "https://codepolitan.com",
-      "image": "/images/certifications/cert-003.svg",
+      "image": "/assets/certifications/cert-003.svg",
       "description": "Sertifikasi penguasaan pemrograman JavaScript modern (ES6+) dan pengembangan sisi server menggunakan Node.js, pengelolaan repositori Git/GitHub, serta integrasi RESTful API pada aplikasi web.",
       "skills": [
         "Javascript",
@@ -61,7 +61,7 @@
       "issueDate": "2024-08-05",
       "credentialId": "PG-CSS-2024-7731",
       "credentialUrl": "",
-      "image": "/images/certifications/cert-004.svg",
+      "image": "/assets/certifications/cert-004.svg",
       "description": "Sertifikasi penyusunan tata letak web responsif lintas perangkat menggunakan pendekatan utility-first Tailwind CSS dan sistem komponen Bootstrap.",
       "skills": [
         "Tailwind CSS",

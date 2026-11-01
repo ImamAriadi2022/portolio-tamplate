@@ -31,9 +31,7 @@
         "Mengimplementasikan layout responsif menggunakan HTML5, CSS3, dan JavaScript",
         "Mengintegrasikan animasi interaktif menggunakan pustaka Animate On Scroll (AOS)"
       ],
-      "gallery": [
-        "/assets/proyek/proyek1.webp"
-      ],
+      "gallery": [],
       "repositoryUrl": "https://github.com/zabrinatalitha/website-sekolah",
       "liveUrl": "https://example.com/website-sekolah"
     },
@@ -70,9 +68,7 @@
         "Mengimplementasikan komponen slider Swiper dan Lightbox Gallery",
         "Mengoptimalkan performa pemuatan gambar dan kompatibilitas lintas browser"
       ],
-      "gallery": [
-        "/assets/proyek/proyek2.webp"
-      ],
+      "gallery": [],
       "repositoryUrl": "https://github.com/zabrinatalitha/company-profile",
       "liveUrl": "https://example.com/company-profile"
     },
@@ -107,9 +103,7 @@
         "Mendesain tampilan elegan dan mobile-first dengan TailwindCSS",
         "Menambahkan transisi halaman dan animasi menggunakan AOS"
       ],
-      "gallery": [
-        "/assets/proyek/proyek3.webp"
-      ],
+      "gallery": [],
       "repositoryUrl": "https://github.com/zabrinatalitha/web-pernikahan-2",
       "liveUrl": "https://example.com/web-pernikahan-2"
     },
@@ -144,9 +138,7 @@
         "Menyesuaikan tema komponen Bootstrap agar selaras dengan identitas brand",
         "Menjaga konsistensi responsivitas pada berbagai ukuran layar"
       ],
-      "gallery": [
-        "/assets/proyek/proyek4.webp"
-      ],
+      "gallery": [],
       "repositoryUrl": "https://github.com/zabrinatalitha/website-course",
       "liveUrl": ""
     },
@@ -180,9 +172,7 @@
         "Merancang wireframe dan desain UI di Figma sebelum tahap coding",
         "Mengimplementasikan kode frontend menggunakan HTML, CSS, JavaScript, dan Bootstrap"
       ],
-      "gallery": [
-        "/assets/proyek/proyek5.webp"
-      ],
+      "gallery": [],
       "repositoryUrl": "https://github.com/zabrinatalitha/web-portfolio",
       "liveUrl": ""
     },
@@ -216,9 +206,7 @@
         "Mengembangkan sistem komponen UI reusable dengan Tailwind CSS",
         "Merancang transisi interaktif menggunakan Framer Motion"
       ],
-      "gallery": [
-        "/assets/proyek/proyek6.webp"
-      ],
+      "gallery": [],
       "repositoryUrl": "https://github.com/zabrinatalitha/company-profile-2",
       "liveUrl": "https://example.com/company-profile-2"
     }
