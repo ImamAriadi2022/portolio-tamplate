@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560" fill="none">
+  <rect width="800" height="560" rx="24" fill="#18181B"/>
+  <rect x="24" y="24" width="752" height="512" rx="16" stroke="#6D28D9" stroke-width="3"/>
+  <rect x="40" y="40" width="720" height="480" rx="12" stroke="#3F3F46" stroke-width="1" stroke-dasharray="6 6"/>
+  <circle cx="400" cy="125" r="38" fill="#6D28D9" fill-opacity="0.2" stroke="#8B5CF6" stroke-width="2"/>
+  <path d="M386 125L396 135L416 115" stroke="#A78BFA" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="400" y="195" text-anchor="middle" fill="#A78BFA" font-family="Poppins, sans-serif" font-size="14" font-weight="600" letter-spacing="3">CERTIFICATE OF COMPLETION</text>
+  <text x="400" y="245" text-anchor="middle" fill="#FFFFFF" font-family="Poppins, sans-serif" font-size="26" font-weight="700">Zabrina Talitha Anindya</text>
+  <line x1="250" y1="265" x2="550" y2="265" stroke="#3F3F46" stroke-width="2"/>
+  <text x="400" y="310" text-anchor="middle" fill="#D4D4D8" font-family="Poppins, sans-serif" font-size="20" font-weight="600">React &amp; Next.js Modern Web Development</text>
+  <text x="400" y="345" text-anchor="middle" fill="#A1A1AA" font-family="Poppins, sans-serif" font-size="14">Issued by Dicoding Indonesia • 2026</text>
+  <rect x="310" y="400" width="180" height="36" rx="8" fill="#27272A" stroke="#3F3F46"/>
+  <text x="400" y="423" text-anchor="middle" fill="#E4E4E7" font-family="monospace" font-size="13">ID: DC-RNX-2026-0891</text>
+</svg>

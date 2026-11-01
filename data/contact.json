@@ -1,0 +1,25 @@
+{
+  "email": "zabrina.talitha@example.com",
+  "socials": [
+    {
+      "platform": "GitHub",
+      "username": "zabrinatalitha",
+      "url": "https://github.com/zabrinatalitha"
+    },
+    {
+      "platform": "LinkedIn",
+      "username": "Zabrina Talitha Anindya",
+      "url": "https://linkedin.com/in/zabrinatalitha"
+    },
+    {
+      "platform": "Instagram",
+      "username": "@zabrinatalitha",
+      "url": "https://instagram.com/zabrinatalitha"
+    },
+    {
+      "platform": "YouTube",
+      "username": "Zabrina Talitha",
+      "url": "https://youtube.com/@zabrinatalitha"
+    }
+  ]
+}

@@ -1,0 +1,226 @@
+{
+  "projects": [
+    {
+      "id": "project-001",
+      "slug": "website-sekolah",
+      "title": "Website Sekolah",
+      "shortDescription": "Portal informasi akademik dan profil institusi pendidikan yang responsif dan interaktif.",
+      "description": "Website Sekolah merupakan platform informasi digital yang dirancang untuk memudahkan siswa, guru, orang tua, dan masyarakat umum dalam mengakses informasi akademik, pengumuman, kegiatan ekstrakurikuler, serta pendaftaran siswa baru secara terpusat.",
+      "thumbnail": "/assets/proyek/proyek1.webp",
+      "category": "Web Development",
+      "featured": true,
+      "status": "Completed",
+      "year": 2025,
+      "role": "Frontend Web Developer",
+      "technologies": [
+        "HTML",
+        "CSS",
+        "Javascript",
+        "AOS"
+      ],
+      "problem": "Penyampaian informasi akademik dan profil sekolah sebelumnya masih dilakukan secara manual dan tersebar di berbagai media, sehingga menyulitkan calon siswa dan wali murid.",
+      "solution": "Membangun portal website sekolah terpusat yang responsif dengan navigasi terstruktur, halaman profil fasilitas, berita kegiatan, dan animasi scroll yang halus menggunakan AOS.",
+      "features": [
+        "Halaman beranda informatif dengan highlight profil dan statistik sekolah",
+        "Direktori jurusan, fasilitas sekolah, dan kegiatan ekstrakurikuler",
+        "Papan pengumuman dan berita kegiatan terbaru",
+        "Desain responsif untuk perangkat mobile maupun desktop"
+      ],
+      "contributions": [
+        "Merancang struktur halaman dan antarmuka pengguna yang ramah pengunjung",
+        "Mengimplementasikan layout responsif menggunakan HTML5, CSS3, dan JavaScript",
+        "Mengintegrasikan animasi interaktif menggunakan pustaka Animate On Scroll (AOS)"
+      ],
+      "gallery": [
+        "/assets/proyek/proyek1.webp"
+      ],
+      "repositoryUrl": "https://github.com/zabrinatalitha/website-sekolah",
+      "liveUrl": "https://example.com/website-sekolah"
+    },
+    {
+      "id": "project-002",
+      "slug": "company-profile",
+      "title": "Company Profile",
+      "shortDescription": "Website profil perusahaan modern dengan galeri interaktif dan katalog layanan bisnis.",
+      "description": "Website Company Profile yang dikembangkan untuk memperkuat identitas digital perusahaan, menampilkan portofolio proyek, daftar layanan utama, testimoni klien, serta galeri dokumentasi interaktif.",
+      "thumbnail": "/assets/proyek/proyek2.webp",
+      "category": "Web Development",
+      "featured": true,
+      "status": "Completed",
+      "year": 2025,
+      "role": "Frontend Developer & UI Designer",
+      "technologies": [
+        "HTML",
+        "CSS",
+        "Javascript",
+        "AOS",
+        "Swiper",
+        "Lightbox Gallery"
+      ],
+      "problem": "Perusahaan membutuhkan media representasi profesional secara daring untuk menampilkan kredibilitas bisnis dan portofolio layanan kepada calon mitra.",
+      "solution": "Mengembangkan website company profile dengan slider interaktif berbasis Swiper dan tampilan dokumentasi proyek menggunakan Lightbox Gallery.",
+      "features": [
+        "Carousel layanan dan testimoni klien menggunakan Swiper.js",
+        "Galeri dokumentasi proyek dengan pratinjau Lightbox Gallery",
+        "Bagian profil visi, misi, dan struktur keunggulan perusahaan",
+        "Integrasi CTA kontak cepat untuk konsultasi bisnis"
+      ],
+      "contributions": [
+        "Menyusun arsitektur informasi dan hierarki visual halaman korporat",
+        "Mengimplementasikan komponen slider Swiper dan Lightbox Gallery",
+        "Mengoptimalkan performa pemuatan gambar dan kompatibilitas lintas browser"
+      ],
+      "gallery": [
+        "/assets/proyek/proyek2.webp"
+      ],
+      "repositoryUrl": "https://github.com/zabrinatalitha/company-profile",
+      "liveUrl": "https://example.com/company-profile"
+    },
+    {
+      "id": "project-003",
+      "slug": "web-pernikahan-2-0",
+      "title": "Web Pernikahan 2.0",
+      "shortDescription": "Undangan pernikahan digital interaktif berbasis React dan Tailwind CSS.",
+      "description": "Web Pernikahan 2.0 adalah aplikasi undangan pernikahan digital modern yang menyajikan informasi acara, hitung mundur waktu pelaksanaan, galeri foto mempelai, peta lokasi, serta fitur konfirmasi kehadiran (RSVP) dan ucapan.",
+      "thumbnail": "/assets/proyek/proyek3.webp",
+      "category": "Web Application",
+      "featured": true,
+      "status": "Completed",
+      "year": 2026,
+      "role": "Full Stack Web Developer",
+      "technologies": [
+        "Vite",
+        "ReactJS",
+        "TailwindCSS",
+        "AOS"
+      ],
+      "problem": "Undangan cetak konvensional memiliki keterbatasan distribusi dan tidak menyediakan fitur konfirmasi kehadiran tamu secara real-time.",
+      "solution": "Membangun aplikasi web undangan digital berbasis ReactJS dan TailwindCSS yang ringan, mudah dibagikan melalui tautan personal, serta dilengkapi fitur RSVP.",
+      "features": [
+        "Personalisasi nama tamu undangan melalui parameter URL",
+        "Countdown timer otomatis menuju hari pelaksanaan acara",
+        "Integrasi penunjuk lokasi acara dan galeri foto mempelai",
+        "Formulir RSVP dan kolom ucapan doa secara interaktif"
+      ],
+      "contributions": [
+        "Membangun komponen modular menggunakan ReactJS dan Vite",
+        "Mendesain tampilan elegan dan mobile-first dengan TailwindCSS",
+        "Menambahkan transisi halaman dan animasi menggunakan AOS"
+      ],
+      "gallery": [
+        "/assets/proyek/proyek3.webp"
+      ],
+      "repositoryUrl": "https://github.com/zabrinatalitha/web-pernikahan-2",
+      "liveUrl": "https://example.com/web-pernikahan-2"
+    },
+    {
+      "id": "project-004",
+      "slug": "website-course",
+      "title": "Website Course",
+      "shortDescription": "Platform katalog kursus online dan pembelajaran digital berbasis ReactJS dan Bootstrap.",
+      "description": "Website Course adalah platform edukasi daring yang menyediakan katalog kelas pembelajaran, informasi silabus, daftar mentor, serta ulasan peserta untuk membantu pengguna memilih kelas yang sesuai dengan kebutuhan pengembangan karier.",
+      "thumbnail": "/assets/proyek/proyek4.webp",
+      "category": "Web Application",
+      "featured": false,
+      "status": "Completed",
+      "year": 2025,
+      "role": "Frontend Developer",
+      "technologies": [
+        "Vite",
+        "ReactJS",
+        "Bootstrap",
+        "AOS"
+      ],
+      "problem": "Peserta kursus membutuhkan antarmuka yang jelas untuk membandingkan materi, harga, dan kurikulum dari berbagai program kelas yang tersedia.",
+      "solution": "Menyediakan antarmuka katalog kursus terstruktur dengan pencarian kategori, rincian modul kelas, dan halaman FAQ yang mudah diakses.",
+      "features": [
+        "Katalog kelas populer beserta rincian harga dan rating",
+        "Filter dan pengelompokan materi pembelajaran",
+        "Halaman testimoni alumni dan pertanyaan umum (FAQ)",
+        "Layout responsif berbasis sistem grid Bootstrap"
+      ],
+      "contributions": [
+        "Mengembangkan komponen kartu kursus dan halaman katalog dengan ReactJS",
+        "Menyesuaikan tema komponen Bootstrap agar selaras dengan identitas brand",
+        "Menjaga konsistensi responsivitas pada berbagai ukuran layar"
+      ],
+      "gallery": [
+        "/assets/proyek/proyek4.webp"
+      ],
+      "repositoryUrl": "https://github.com/zabrinatalitha/website-course",
+      "liveUrl": ""
+    },
+    {
+      "id": "project-005",
+      "slug": "web-portfolio",
+      "title": "Web Portfolio",
+      "shortDescription": "Website portofolio personal untuk menampilkan karya desain dan pengembangan web.",
+      "description": "Web Portfolio merupakan proyek website personal yang dirancang untuk merangkum profil profesional, keahlian teknis, serta daftar karya proyek web dan desain visual dalam satu halaman yang ringkas.",
+      "thumbnail": "/assets/proyek/proyek5.webp",
+      "category": "UI/UX & Web Design",
+      "featured": false,
+      "status": "Completed",
+      "year": 2024,
+      "role": "Web Developer & Designer",
+      "technologies": [
+        "HTML",
+        "CSS",
+        "Javascript",
+        "Bootstrap"
+      ],
+      "problem": "Diperlukan media portofolio daring yang rapi dan mudah diakses oleh perekrut maupun klien untuk meninjau hasil karya terdahulu.",
+      "solution": "Merancang dan mengimplementasikan website portofolio yang fokus pada keterbacaan informasi, showcase proyek, dan kemudahan kontak.",
+      "features": [
+        "Ringkasan profil dan daftar keahlian utama",
+        "Showcase proyek dengan tautan pratinjau",
+        "Formulir kontak langsung dan tautan media sosial",
+        "Tampilan bersih dan cepat dimuat"
+      ],
+      "contributions": [
+        "Merancang wireframe dan desain UI di Figma sebelum tahap coding",
+        "Mengimplementasikan kode frontend menggunakan HTML, CSS, JavaScript, dan Bootstrap"
+      ],
+      "gallery": [
+        "/assets/proyek/proyek5.webp"
+      ],
+      "repositoryUrl": "https://github.com/zabrinatalitha/web-portfolio",
+      "liveUrl": ""
+    },
+    {
+      "id": "project-006",
+      "slug": "company-profile-2-0",
+      "title": "Company Profile 2.0",
+      "shortDescription": "Pembaruan website korporat berbasis Next.js, Tailwind CSS, dan animasi Framer Motion.",
+      "description": "Company Profile 2.0 adalah generasi terbaru dari website profil perusahaan yang dibangun menggunakan Next.js untuk performa SEO yang optimal, dipadukan dengan Tailwind CSS dan transisi mikro interaktif menggunakan Framer Motion.",
+      "thumbnail": "/assets/proyek/proyek6.webp",
+      "category": "Web Development",
+      "featured": false,
+      "status": "Completed",
+      "year": 2026,
+      "role": "Full Stack Web Developer",
+      "technologies": [
+        "NextJS",
+        "TailwindCSS",
+        "Framermotion"
+      ],
+      "problem": "Versi website korporat sebelumnya membutuhkan peningkatan kecepatan pemuatan halaman, optimasi SEO, serta tampilan visual yang lebih modern.",
+      "solution": "Melakukan modernisasi arsitektur frontend menggunakan Next.js dan Tailwind CSS disertai animasi transisi yang halus berbasis Framer Motion.",
+      "features": [
+        "Arsitektur halaman cepat dan ramah mesin pencari (SEO) dengan Next.js",
+        "Animasi antarmuka modern menggunakan Framer Motion",
+        "Halaman showcase studi kasus dan layanan korporat",
+        "Desain dark/light section yang kontras dan terstruktur"
+      ],
+      "contributions": [
+        "Membangun arsitektur halaman menggunakan Next.js",
+        "Mengembangkan sistem komponen UI reusable dengan Tailwind CSS",
+        "Merancang transisi interaktif menggunakan Framer Motion"
+      ],
+      "gallery": [
+        "/assets/proyek/proyek6.webp"
+      ],
+      "repositoryUrl": "https://github.com/zabrinatalitha/company-profile-2",
+      "liveUrl": "https://example.com/company-profile-2"
+    }
+  ]
+}

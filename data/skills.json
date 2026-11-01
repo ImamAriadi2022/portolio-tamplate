@@ -1,0 +1,83 @@
+{
+  "categories": [
+    {
+      "id": "framework",
+      "name": "Framework & Library",
+      "items": [
+        {
+          "name": "React JS",
+          "icon": "/assets/tools/reactjs.png",
+          "role": "Framework"
+        },
+        {
+          "name": "Next JS",
+          "icon": "/assets/tools/nextjs.png",
+          "role": "Framework"
+        },
+        {
+          "name": "Tailwind CSS",
+          "icon": "/assets/tools/tailwind.png",
+          "role": "Framework"
+        },
+        {
+          "name": "Bootstrap",
+          "icon": "/assets/tools/bootstrap.png",
+          "role": "Framework"
+        }
+      ]
+    },
+    {
+      "id": "language-runtime",
+      "name": "Language & Runtime",
+      "items": [
+        {
+          "name": "Javascript",
+          "icon": "/assets/tools/js.png",
+          "role": "Language"
+        },
+        {
+          "name": "Node JS",
+          "icon": "/assets/tools/nodejs.png",
+          "role": "Javascript Runtime"
+        }
+      ]
+    },
+    {
+      "id": "development-tools",
+      "name": "Code Editor & Repository",
+      "items": [
+        {
+          "name": "Visual Studio Code",
+          "icon": "/assets/tools/vscode.png",
+          "role": "Code Editor"
+        },
+        {
+          "name": "Github",
+          "icon": "/assets/tools/github.png",
+          "role": "Repository"
+        }
+      ]
+    },
+    {
+      "id": "design-tools",
+      "name": "Design App",
+      "items": [
+        {
+          "name": "Adobe Illustrator",
+          "icon": "/assets/tools/ai.png",
+          "role": "Design App"
+        },
+        {
+          "name": "Canva",
+          "icon": "/assets/tools/canva.png",
+          "role": "Design App"
+        },
+        {
+          "name": "Figma",
+          "icon": "/assets/tools/figma.png",
+          "role": "Design App"
+        }
+      ]
+    }
+  ]
+}

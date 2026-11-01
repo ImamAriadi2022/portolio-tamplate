@@ -1,0 +1,102 @@
+{
+  "experiences": [
+    {
+      "id": "exp-001",
+      "slug": "fullstack-web-developer-dan-ui-designer-freelance",
+      "organization": "Independent Digital Studio",
+      "position": "Full Stack Web Developer & UI/UX Designer",
+      "type": "Freelance",
+      "location": "Indonesia",
+      "employmentType": "Remote",
+      "startDate": "2024-06",
+      "endDate": "",
+      "current": true,
+      "shortDescription": "Mengembangkan berbagai proyek website korporat, aplikasi undangan digital, dan desain produk digital untuk klien.",
+      "description": "Berperan sebagai pengembang web full stack sekaligus desainer UI/UX independen yang menangani siklus pengembangan produk digital dari tahap perancangan desain di Figma hingga implementasi kode produksi menggunakan React.js, Next.js, dan Tailwind CSS.",
+      "responsibilities": [
+        "Merancang antarmuka pengguna (UI/UX) dan prototipe interaktif menggunakan Figma sebelum tahap pengembangan",
+        "Membangun website company profile, landing page, dan aplikasi web interaktif menggunakan React.js, Next.js, dan Tailwind CSS",
+        "Melakukan optimasi responsivitas tampilan pada berbagai ukuran perangkat serta menjaga performa pemuatan halaman",
+        "Mengelola kode sumber dan kolaborasi rilis proyek menggunakan Git dan GitHub"
+      ],
+      "achievements": [
+        "Menyelesaikan puluhan proyek website dan aset desain digital dengan tingkat kepuasan klien yang tinggi",
+        "Memangkas waktu pembuatan antarmuka hingga 40% melalui penerapan komponen reusable berbasis Tailwind CSS dan React"
+      ],
+      "technologies": [
+        "React JS",
+        "Next JS",
+        "Tailwind CSS",
+        "Javascript",
+        "Node JS",
+        "Figma",
+        "Github"
+      ],
+      "logo": "/images/experiences/exp-001.svg",
+      "featured": true
+    },
+    {
+      "id": "exp-002",
+      "slug": "frontend-web-developer-kreatif-media",
+      "organization": "Nusantara Kreatif Digital",
+      "position": "Frontend Web Developer",
+      "type": "Work Experience",
+      "location": "Jakarta, Indonesia",
+      "employmentType": "Full-time",
+      "startDate": "2023-03",
+      "endDate": "2024-05",
+      "current": false,
+      "shortDescription": "Mengimplementasikan antarmuka website sekolah, portal kursus online, dan profil perusahaan.",
+      "description": "Bertanggung jawab dalam menerjemahkan desain visual menjadi kode frontend yang bersih, interaktif, dan responsif untuk berbagai kebutuhan klien di sektor pendidikan dan korporat.",
+      "responsibilities": [
+        "Mengonversi desain Figma menjadi halaman web interaktif menggunakan React.js, Bootstrap, dan Tailwind CSS",
+        "Mengintegrasikan pustaka pendukung seperti AOS, Swiper, dan Lightbox Gallery untuk meningkatkan pengalaman pengguna",
+        "Berkoordinasi dengan tim desainer dan pengembang backend dalam penyelarasan struktur data dan komponen UI"
+      ],
+      "achievements": [
+        "Mengembangkan template standar portal sekolah dan company profile yang mempercepat pengerjaan proyek tim",
+        "Meningkatkan skor aksesibilitas dan responsivitas tampilan mobile pada seluruh produk web yang dirilis"
+      ],
+      "technologies": [
+        "React JS",
+        "Bootstrap",
+        "Tailwind CSS",
+        "Javascript",
+        "Visual Studio Code",
+        "Github"
+      ],
+      "logo": "/images/experiences/exp-002.svg",
+      "featured": true
+    },
+    {
+      "id": "exp-003",
+      "slug": "graphic-dan-visual-designer-komunitas-it",
+      "organization": "Komunitas Kreatif & Teknologi",
+      "position": "Lead Visual & UI Designer",
+      "type": "Organization",
+      "location": "Indonesia",
+      "employmentType": "Hybrid",
+      "startDate": "2022-01",
+      "endDate": "2023-02",
+      "current": false,
+      "shortDescription": "Menangani pembuatan aset visual, poster, pamflet, banner acara, serta desain materi publikasi komunitas.",
+      "description": "Memimpin divisi desain visual dan media kreatif dalam merancang identitas acara, poster, pamflet, banner promosi, serta desain antarmuka landing page kegiatan komunitas teknologi.",
+      "responsibilities": [
+        "Merancang materi publikasi visual seperti poster, pamflet, dan banner menggunakan Adobe Illustrator dan Canva",
+        "Menyusun panduan identitas visual acara agar konsisten di seluruh kanal media sosial dan website",
+        "Bekerja sama dengan tim web untuk menyiapkan aset grafis dan tata letak halaman informasi kegiatan"
+      ],
+      "achievements": [
+        "Merancang lebih dari 30 paket publikasi visual acara dan materi edukasi komunitas",
+        "Membangun standar template desain komunitas di Figma dan Canva untuk mempercepat kolaborasi anggota"
+      ],
+      "technologies": [
+        "Adobe Illustrator",
+        "Canva",
+        "Figma"
+      ],
+      "logo": "/images/experiences/exp-003.svg",
+      "featured": true
+    }
+  ]
+}

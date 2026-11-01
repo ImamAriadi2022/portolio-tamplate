@@ -1,0 +1,24 @@
+{
+  "menus": [
+    {
+      "label": "Home",
+      "path": "/"
+    },
+    {
+      "label": "Projects",
+      "path": "/projects"
+    },
+    {
+      "label": "Certifications",
+      "path": "/certifications"
+    },
+    {
+      "label": "Experience",
+      "path": "/experience"
+    },
+    {
+      "label": "Contact",
+      "path": "/contact"
+    }
+  ]
+}
