@@ -1,10 +1,10 @@
-import profileRaw from "../../data/profile.json";
-import skillsRaw from "../../data/skills.json";
-import projectsRaw from "../../data/projects.json";
-import certificationsRaw from "../../data/certifications.json";
-import experiencesRaw from "../../data/experiences.json";
-import contactRaw from "../../data/contact.json";
-import navigationRaw from "../../data/navigation.json";
+import profileRaw from "../../data/profile.json" with { type: "json" };
+import skillsRaw from "../../data/skills.json" with { type: "json" };
+import projectsRaw from "../../data/projects.json" with { type: "json" };
+import certificationsRaw from "../../data/certifications.json" with { type: "json" };
+import experiencesRaw from "../../data/experiences.json" with { type: "json" };
+import contactRaw from "../../data/contact.json" with { type: "json" };
+import navigationRaw from "../../data/navigation.json" with { type: "json" };
 
 import { ensureItemSlug, normalizeSlug } from "./slug.js";
 import {
